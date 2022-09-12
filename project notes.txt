@@ -1,1 +1,5 @@
 The elastic beantalk url : http://udacity-c2-img-filter-dev.us-west-2.elasticbeanstalk.com/
+
+the github url :https://github.com/nadayousef/project_2
+
+the repository  URL : https://github.com/nadayousef/project_2.git
