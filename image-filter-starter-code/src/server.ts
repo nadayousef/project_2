@@ -31,35 +31,35 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
 
   //! END @TODO1
   
-  app.get("/filteredimage/", async( req , res) => {
-let {image_url}=req.query;
+  app.get("/filteredimage/", async( request , result) => {
+let image_url: string = req.query.image_url
 console.log(image_url);
-const invalidurl=image_url.match(/(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/);
-if (invalidurl==null){
-  return res.status(400).send("invalid url try again");
+const invalid_url=image_url.match(/(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/);
+if (invalid_url==null){
+  return result.status(400).send("invalid url try again");
 }
 if (!image_url){
-  return res.status(400).send("invalid url");
+  return result.status(400).send("invalid url");
 }
 else {
 try{
-  const filterimg=await filterImageFromURL(image_url);
-  if (filterimg===undefined||filterimg===null){
-    return res.status(400).send("filtering image failed");
+  const filter_image=await filterImageFromURL(image_url);
+  if (filter_image===undefined||filter_image===null){
+    return result.status(400).send("filtering image failed");
   }
   else{
-    res.status(200).sendFile(filterimg +'');
-    res.on('finish',() => deleteLocalFiles([filterimg]));  
+    result.status(200).sendFile(filter_image +'');
+    result.on('finish',() => deleteLocalFiles([filter_image]));  
     
   }
 } catch (error) {
-  return res.status(400).send("filtering image failed");
+  return result.status(400).send("filtering image failed");
 } 
 }
 });
   // Root Endpoint
   // Displays a simple message to the user
-  app.get( "/", async ( req, res ) => {
+  app.get( "/", async ( request, result ) => {
     res.send("try GET /filteredimage?image_url={{}}")
   } );
   
