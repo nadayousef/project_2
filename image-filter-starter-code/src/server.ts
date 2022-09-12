@@ -49,7 +49,7 @@ try{
   }
   else{
     result.status(200).sendFile(filter_image +'');
-    result.on('finish',() => deleteLocalFiles([filterimg]));  
+    result.on('finish',() => deleteLocalFiles([filter_image]));  
     
   }
 } catch (error) {
